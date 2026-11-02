@@ -99,7 +99,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 h2 { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--muted); margin: 0 2px 12px; text-transform: uppercase; }
 .days { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.days button { position: relative; padding: 10px 10px 9px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line);
+.days button { position: relative; min-width: 0; padding: 10px 10px 9px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line);
   display: flex; flex-direction: column; align-items: flex-start; gap: 3px; text-align: left; }
 .days button b { font-family: var(--serif); font-weight: 600; font-size: 20px; line-height: 1; color: var(--ink-2); }
 .days button small { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
@@ -234,6 +234,38 @@ h2 { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--mute
 .sw[aria-checked="true"]::after { transform: translateX(20px); }
 .reset { color: var(--unk); font-size: 14px; padding: 14px 0 0; }
 
+/* ---------- 새로 더한 것: 오늘 복습 / 주제별 / 철자·듣기 테스트 / 백업 ---------- */
+.rev { display: flex; align-items: center; justify-content: space-between; width: 100%; text-align: left; margin-bottom: 12px;
+  padding: 16px 20px; border-radius: 22px; background: var(--ink); color: var(--bg); box-shadow: var(--shadow); }
+.rev[hidden] { display: none; }
+.rev-l { display: grid; grid-template-columns: auto 1fr; align-items: baseline; column-gap: 10px; }
+.rev small { grid-column: 1 / -1; font-size: 12px; font-weight: 600; letter-spacing: .08em; opacity: .7; }
+.rev b { font-family: var(--serif); font-weight: 600; font-size: 34px; line-height: 1.1; }
+.rev em { font-style: normal; font-size: 13px; opacity: .75; }
+.rev-go { font-weight: 700; font-size: 15px; padding: 10px 14px; border-radius: 12px; background: var(--accent); color: #fff; flex: none; }
+.topicsBtn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 15px 18px; margin: -12px 0 28px; border-radius: 16px;
+  background: var(--paper); border: 1px solid var(--line); text-align: left; font-weight: 600; }
+.topicsBtn small { flex: 1; font-weight: 400; color: var(--muted); font-size: 13px; }
+.topicsBtn i { font-style: normal; color: var(--muted); }
+.tp { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; width: 100%; padding: 14px 16px; border-top: 1px solid var(--line); text-align: left; }
+.list .tp:first-child { border-top: 0; }
+.tp b { font-weight: 600; }
+.tp small { grid-column: 2; grid-row: 1; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.tp .pbar { grid-column: 1 / -1; height: 4px; border-radius: 2px; background: var(--line); overflow: hidden; display: flex; }
+.tp .pbar i { display: block; height: 100%; }
+.hearBtn { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 40px auto 0; color: var(--accent); font-weight: 600; font-size: 14px; }
+.hearBtn svg { width: 72px; height: 72px; padding: 20px; border-radius: 50%; background: var(--accent-soft); }
+.spellIn { width: 100%; height: 58px; padding: 0 16px; border: 1.5px solid var(--line-2); border-radius: 14px; background: var(--paper); color: var(--ink);
+  font-family: var(--serif); font-size: 22px; }
+.spellIn:focus { outline: none; border-color: var(--accent); }
+.spellIn::placeholder { font-family: var(--sans); font-size: 16px; color: var(--muted); }
+.accents { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; }
+.accents button { height: 42px; border-radius: 10px; background: var(--paper); border: 1px solid var(--line); font-family: var(--serif); font-size: 18px; }
+.bsub { font-weight: 400; color: var(--muted); font-size: 13px; margin-left: 6px; }
+.two2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.bk { display: flex; gap: 6px; flex: none; }
+.bk button { padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line-2); font-weight: 600; font-size: 14px; }
+
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 </head>
@@ -247,6 +279,11 @@ h2 { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--mute
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
     </button>
   </div>
+
+  <button class="rev" id="rev" hidden>
+    <span class="rev-l"><small>오늘 복습</small><b id="revN">0</b><em id="revSub"></em></span>
+    <span class="rev-go">시작 →</span>
+  </button>
 
   <div class="hoy">
     <div class="eyebrow"><span>Hoy</span><em id="tDay"></em></div>
@@ -268,6 +305,8 @@ h2 { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--mute
     <button class="markBtn u" data-list="u"><span>모르는 단어</span><b id="nU">0</b></button>
     <button class="markBtn c" data-list="c"><span>헷갈리는 단어</span><b id="nC">0</b></button>
   </div>
+
+  <button class="topicsBtn" id="openTopics"><span>주제별 보기</span><small id="topicsSub"></small><i>→</i></button>
 
   <h2>DAY</h2>
   <div id="grid"></div>
@@ -362,6 +401,18 @@ h2 { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--mute
   </div>
 </section>
 
+<!-- 주제별 보기 -->
+<section class="screen" id="topics">
+  <div class="bar-top">
+    <button class="x" id="tpBack" aria-label="처음 화면으로">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <span class="label">주제별 보기</span>
+  </div>
+  <p class="listHint">작문·말하기 주제를 대비할 때 주제 하나를 골라 몰아서 보세요.</p>
+  <div class="list" id="tpList"></div>
+</section>
+
 <!-- DAY 눌렀을 때 -->
 <div class="sheet" id="daySheet">
   <div class="panel">
@@ -369,7 +420,11 @@ h2 { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--mute
     <h3 id="dsTitle"></h3>
     <p class="sub" id="dsSub"></p>
     <button class="big primary" id="dsStudy">카드 넘겨보기</button>
-    <button class="big line" id="dsTest">테스트 보기</button>
+    <button class="big line" id="dsTest">테스트 보기 <small class="bsub">빈칸 + 뜻</small></button>
+    <div class="two2">
+      <button class="big line" id="dsSpell">철자 쓰기</button>
+      <button class="big line" id="dsHear">듣고 고르기</button>
+    </div>
     <button class="big line" id="dsListen">연속 듣기</button>
     <button class="big plain" id="dsClose">닫기</button>
   </div>
@@ -388,6 +443,11 @@ h2 { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--mute
       <div>카드 넘기면 발음 듣기<small>이어폰 끼고 들으면 좋아요</small></div>
       <button class="sw" id="swAuto" role="switch" aria-checked="false" aria-label="카드 넘기면 발음 듣기"></button>
     </div>
+    <div class="opt">
+      <div>기록 백업<small id="bkSub">기록은 이 폰 안에만 있어요. 주 1회 파일로 저장해 두세요</small></div>
+      <span class="bk"><button id="bkOut">저장</button><button id="bkIn">불러오기</button></span>
+      <input type="file" id="bkFile" accept="application/json,.json" hidden>
+    </div>
     <button class="reset" id="reset">기록 전부 지우기</button>
     <button class="big primary" id="closeSet">닫기</button>
   </div>
@@ -401,11 +461,36 @@ const QN = 30;       // DAY 테스트 문제 수
 const DAYS = Math.ceil(MAIN / PER);
 const KEY = 'deleb2-v1'; // ⚠️ 영어 앱(pilsu-v1)과 다른 이름이어야 기록이 안 섞임
 // done: 카드 다 본 DAY / mark: 단어번호 → 'u'(몰라요) 'c'(헷갈려요) / score: DAY → 테스트 최고 점수 / lastQ: DAY → 지난 테스트에 나온 단어
-let S = { done: {}, mark: {}, score: {}, lastQ: {}, koFirst: false, autoSay: false };
+// srs: 단어번호 → [간격 단계, 다음 복습일 'YYYY-MM-DD'] / okT: 단어번호 → 테스트에서 마지막으로 맞힌 날 / master: 마스터한 단어
+let S = { done: {}, mark: {}, score: {}, lastQ: {}, srs: {}, okT: {}, master: {}, koFirst: false, autoSay: false };
 try { Object.assign(S, JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) {}
 if (S.per !== PER) { S.done = {}; S.score = {}; S.lastQ = {}; S.per = PER; }
-S.lastQ = S.lastQ || {};
+['lastQ', 'srs', 'okT', 'master'].forEach(k => S[k] = S[k] || {});
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+
+/* ---------- 복습 일정 ---------- */
+// 알아요를 누를 때마다 간격이 한 칸씩: 1 → 3 → 7 → 14 → 30일
+// 몰라요 = 처음(내일)부터, 헷갈려요 = 2일 뒤(간격 그대로)
+// 30일 간격에서 또 알아요 + 최근 30일 안에 테스트에서 맞힘 → 마스터 (더 안 나옴)
+const GAPS = [1, 3, 7, 14, 30];
+const ymd = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const today = () => ymd(new Date());
+const plusDays = k => { const d = new Date(); d.setDate(d.getDate() + k); return ymd(d); };
+const daysSince = s => s ? Math.round((new Date(today()) - new Date(s)) / 864e5) : 1e9;
+function rate(n, m) {
+  if (S.master[n] && m === 'k') return;
+  delete S.master[n];
+  const cur = S.srs[n];
+  if (m === 'u') S.srs[n] = [0, plusDays(1)];
+  else if (m === 'c') S.srs[n] = [cur ? cur[0] : 0, plusDays(2)];
+  else if (!cur) S.srs[n] = [0, plusDays(GAPS[0])];
+  else if (cur[0] >= GAPS.length - 1 && daysSince(S.okT[n]) <= 30) { delete S.srs[n]; S.master[n] = 1; delete S.mark[n]; }
+  else { const i = Math.min(cur[0] + 1, GAPS.length - 1); S.srs[n] = [i, plusDays(GAPS[i])]; }
+}
+const RANK = { u: 0, c: 1 };
+const dueDeck = () => { const t = today();
+  return Object.keys(S.srs).filter(n => S.srs[n][1] <= t).map(Number)
+    .sort((a, b) => (RANK[S.mark[a]] ?? 2) - (RANK[S.mark[b]] ?? 2) || (S.srs[a][1] < S.srs[b][1] ? -1 : 1) || a - b); };
 
 const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const hl = s => esc(s).replace(/\{(.+?)\}/g, '<b>$1</b>');
@@ -434,6 +519,10 @@ function setMark(n, m) { if (m === 'k') delete S.mark[n]; else S.mark[n] = m; sa
 // 파일이 안 열리면(인터넷 없음 등) 폰 읽어주기 기능으로 대신 읽음
 const player = new Audio();
 player.preload = 'auto';
+// 문형 항목은 읽을 때 자리표시(+ 동사원형, (se) 등)를 뺌: 'llevar sin + infinitivo' → 'llevar sin'
+const PH = /^[¡!¿?\s]*(sust\.|adj\.|verbo|infinitivo|gerundio|número|tiempo|hora|수)[\s!?.]*$/;
+const spoken = w => w.replace(/\([^)]*\)/g, ' ').split('+').filter(p => !PH.test(p)).join(' ')
+  .replace(/\/a\b/g, '').replace(/…|\.\.\./g, ' ').replace(/\s+/g, ' ').trim();
 function tts(text) {
   if (!('speechSynthesis' in window)) return;
   if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel();
@@ -442,7 +531,7 @@ function tts(text) {
   speechSynthesis.speak(u);
 }
 function play(n, kind) {
-  const text = kind === 'w' ? WORDS[n - 1][0] : plain(WORDS[n - 1][2]);
+  const text = kind === 'w' ? spoken(WORDS[n - 1][0]) : plain(WORDS[n - 1][2]);
   let fell = false;
   const fallback = () => { if (!fell) { fell = true; tts(text); } };
   stopListen();
@@ -460,7 +549,9 @@ function show(id) {
   window.scrollTo(0, 0);
 }
 function goHome() { stopListen(); player.pause(); if ('speechSynthesis' in window) speechSynthesis.cancel(); renderHome(); show('home'); }
-document.querySelectorAll('.quit').forEach(b => b.onclick = () => ctx.list ? openMarked(ctx.list) : goHome());
+document.querySelectorAll('.quit').forEach(b => b.onclick = () => back());
+const TOPICS = [...new Set(WORDS.map(w => w[4]).filter(Boolean))];
+const topicDeck = t => { const r = []; WORDS.forEach((w, i) => { if (w[4] === t) r.push(i + 1); }); return r; };
 
 /* ---------- 처음 화면 ---------- */
 function renderHome() {
@@ -468,8 +559,13 @@ function renderHome() {
   $('tDay').textContent = S.done[d] ? `DAY ${d} 복습` : `DAY ${d}`;
   $('tPeek').innerHTML = wordH(WORDS[a - 1][0]);
   $('tMeta').textContent = `${dayTopics(d)} · ${b - a + 1}단어`;
-  const n = Object.keys(S.done).length;
-  $('mText').innerHTML = `<b>${DAYS}개 DAY 중 ${n}개</b> 끝냄<br>${MAIN.toLocaleString()}단어 · 하루 ${PER}개`;
+  const due = dueDeck().length;
+  $('rev').hidden = !due;
+  $('revN').textContent = due;
+  $('revSub').textContent = due > 120 ? '복습이 많아요. 오늘은 복습만 해도 충분해요' : '몰라요 → 헷갈려요 → 알아요 순서';
+  $('topicsSub').textContent = `${TOPICS.length}개 주제`;
+  const n = Object.keys(S.done).length, nm = Object.keys(S.master).length;
+  $('mText').innerHTML = `<b>${DAYS}개 DAY 중 ${n}개</b> 끝냄<br>${MAIN.toLocaleString()}단어 · 마스터 ${nm}개`;
   $('mRing').style.strokeDashoffset = 138.2 * (1 - n / DAYS);
   $('nU').textContent = markedDeck('u').length;
   $('nC').textContent = markedDeck('c').length;
@@ -495,8 +591,32 @@ $('grid').onclick = e => {
   $('dsSub').textContent = `${dayTopics(d)} · ${pad(a)}–${pad(z)}번` + (sc != null ? ` · 테스트 최고 ${sc}점` : '');
   $('daySheet').classList.add('on');
 };
+$('rev').onclick = () => startStudy({ review: true });
+$('openTopics').onclick = () => openTopics();
 $('dsStudy').onclick = () => startStudy(sheetCtx);
 $('dsTest').onclick = () => startTest(sheetCtx);
+$('dsSpell').onclick = () => startTest(sheetCtx, 'spell');
+$('dsHear').onclick = () => startTest(sheetCtx, 'hear');
+
+/* ---------- 주제별 보기 ---------- */
+function openTopics() { ctx = {}; renderTopics(); show('topics'); }
+function renderTopics() {
+  $('tpList').innerHTML = TOPICS.map((t, i) => {
+    const d = topicDeck(t), m = d.filter(n => S.master[n]).length, k = d.filter(n => S.srs[n] && !S.mark[n]).length,
+      u = d.filter(n => S.mark[n]).length, pct = x => (x / d.length * 100).toFixed(1) + '%';
+    return `<button class="tp" data-t="${i}"><b>${esc(t)}</b><small>${d.length}단어</small>
+      <span class="pbar"><i style="width:${pct(m)};background:var(--master)"></i><i style="width:${pct(k)};background:var(--ok)"></i><i style="width:${pct(u)};background:var(--conf-line)"></i></span></button>`;
+  }).join('') + `<div class="legend" style="padding:10px 16px 12px"><span><i style="background:var(--master)"></i>마스터</span><span><i style="background:var(--ok)"></i>알아요</span><span><i style="background:var(--conf-line)"></i>몰라요·헷갈려요</span></div>`;
+}
+$('tpList').onclick = e => {
+  const b = e.target.closest('button[data-t]'); if (!b) return;
+  const t = TOPICS[+b.dataset.t], d = topicDeck(t);
+  sheetCtx = { topic: t };
+  $('dsTitle').textContent = t;
+  $('dsSub').textContent = `${d.length}단어 · 테스트는 무작위 ${Math.min(QN, d.length)}문항`;
+  $('daySheet').classList.add('on');
+};
+$('tpBack').onclick = goHome;
 $('dsListen').onclick = () => startListen(sheetCtx);
 $('dsClose').onclick = () => $('daySheet').classList.remove('on');
 document.querySelectorAll('.sheet').forEach(s => s.addEventListener('click', e => { if (e.target === s) s.classList.remove('on'); }));
@@ -505,13 +625,17 @@ document.querySelectorAll('.sheet').forEach(s => s.addEventListener('click', e =
 // ctx: { day: 숫자 } 또는 { list: 'u'|'c' }
 let ctx = {}, deck = [], pos = 0, marks = [], revealed = false;
 
-function ctxLabel() { return ctx.day ? `DAY ${ctx.day}` : LIST_NAME[ctx.list]; }
-function ctxDeck() { return ctx.day ? dayDeck(ctx.day) : markedDeck(ctx.list); }
+// ctx.fixed: 그 순간의 단어 묶음을 고정 (오늘 복습은 누르는 대로 날짜가 바뀌므로)
+function ctxLabel() { return ctx.day ? `DAY ${ctx.day}` : ctx.review ? '오늘 복습' : ctx.topic ? ctx.topic : LIST_NAME[ctx.list]; }
+function ctxDeck() { return ctx.fixed ? ctx.fixed.slice() : ctx.day ? dayDeck(ctx.day) : ctx.review ? dueDeck() : ctx.topic ? topicDeck(ctx.topic) : markedDeck(ctx.list); }
+const back = () => ctx.list ? openMarked(ctx.list) : ctx.topic ? openTopics() : goHome();
 
+let again = new Set(); // 이번에 몰라요로 한 번 더 넣은 단어
 function startStudy(c) {
   ctx = c; deck = ctxDeck(); if (!deck.length) return;
+  if (ctx.review) ctx.fixed = deck.slice();
   $('sLabel').textContent = ctxLabel();
-  pos = 0; marks = deck.map(() => null); revealed = false;
+  pos = 0; marks = deck.map(() => null); revealed = false; again = new Set();
   show('study'); renderCard();
 }
 function renderCard() {
@@ -545,7 +669,10 @@ $('card').onclick = e => {
 $('card').onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('card').click(); } };
 
 function markCard(m) {
-  marks[pos] = m; setMark(deck[pos], m);
+  const n = deck[pos];
+  marks[pos] = m; rate(n, m); setMark(n, S.master[n] ? 'k' : m);
+  // 몰라요는 같은 세션에서 카드 10장 뒤에 한 번 더
+  if (m === 'u' && !again.has(n)) { again.add(n); const at = Math.min(pos + 11, deck.length); deck.splice(at, 0, n); marks.splice(at, 0, null); }
   if (pos < deck.length - 1) go(pos + 1); else finishStudy();
 }
 document.querySelectorAll('.actions button').forEach(b => b.onclick = () => markCard(b.dataset.m));
@@ -576,17 +703,21 @@ function endButtons(a, b) {
 function finishStudy() {
   const nU = marks.filter(x => x === 'u').length, nC = marks.filter(x => x === 'c').length;
   $('eScore').textContent = '';
-  if (ctx.day) { S.done[ctx.day] = true; save(); }
-  $('eTitle').textContent = ctx.day ? `DAY ${ctx.day} 카드 끝` : `${LIST_NAME[ctx.list]} 다 봤어요`;
+  if (ctx.day) { S.done[ctx.day] = true; }
+  save();
+  $('eTitle').textContent = ctx.day ? `DAY ${ctx.day} 카드 끝` : `${ctxLabel()} 다 봤어요`;
   $('eSub').textContent = (nU || nC)
-    ? `몰라요 ${nU}개, 헷갈려요 ${nC}개는 처음 화면에 따로 모아 뒀어요.`
-    : '전부 알아요로 넘겼어요.';
-  $('eList').innerHTML = deck.map((n, i) => {
-    const [w] = WORDS[n - 1], k = marks[i] || 'k';
-    return `<div class="row"><span class="w">${wordH(w)}</span><span class="m">${meanH(n)}</span><span class="t ${k}">${MARK_NAME[k]}</span></div>`;
+    ? `몰라요·헷갈려요 단어는 내일·모레 다시 나와요. 알아요는 1 → 3 → 7 → 14 → 30일 뒤에 다시 나와요.`
+    : '전부 알아요로 넘겼어요. 며칠 뒤 복습에 다시 나와요.';
+  const last = new Map(); deck.forEach((n, i) => last.set(n, marks[i] || 'k')); // 두 번 본 단어는 마지막 답만
+  $('eList').innerHTML = [...last].map(([n, k]) => {
+    const [w] = WORDS[n - 1], tag = S.master[n] ? ['ok', '마스터'] : [k, MARK_NAME[k]];
+    return `<div class="row"><span class="w">${wordH(w)}</span><span class="m">${meanH(n)}</span><span class="t ${tag[0]}">${tag[1]}</span></div>`;
   }).join('');
   const c0 = ctx;
-  if (c0.day) {
+  if (c0.review || c0.topic) {
+    endButtons(['방금 본 단어로 테스트 보기', () => startTest({ ...c0, fixed: [...last.keys()] })], null);
+  } else if (c0.day) {
     const nd = nextDay();
     endButtons(['방금 본 단어로 테스트 보기', () => startTest(c0)],
       S.done[nd] ? null : [`이어서 DAY ${nd} 카드 보기`, () => startStudy({ day: nd })]);
@@ -664,7 +795,7 @@ function listenStep() {
     if (fell || tok !== L.tok) return; fell = true;
     if (!('speechSynthesis' in window)) { next(); return; }
     const [w, m, ex] = WORDS[n - 1];
-    const u = new SpeechSynthesisUtterance(kind === 'w' ? w : kind === 'm' ? m.replace(/[~;()\[\]]/g, ' ') : plain(ex));
+    const u = new SpeechSynthesisUtterance(kind === 'w' ? spoken(w) : kind === 'm' ? m.replace(/[~;()\[\]]/g, ' ') : plain(ex));
     u.lang = kind === 'm' ? 'ko-KR' : 'es-ES'; u.rate = 0.9;
     u.onend = next; u.onerror = next;
     speechSynthesis.cancel(); speechSynthesis.speak(u);
@@ -684,7 +815,7 @@ $('lPrev').onclick = () => { if (L.pos > 0) listenJump(L.pos - 1); };
 $('lNext').onclick = () => { if (L.pos < L.deck.length - 1 || L.loop) listenJump(L.pos + 1); };
 $('lCard').onclick = () => $('lPlay').click();
 $('lLoop').onclick = () => { L.loop = !L.loop; renderListen(); };
-$('lQuit').onclick = () => { stopListen(); ctx.list ? openMarked(ctx.list) : goHome(); };
+$('lQuit').onclick = () => { stopListen(); back(); };
 // 잠금 화면·이어폰 버튼으로 멈춤/재생/다음
 if ('mediaSession' in navigator) {
   const h = (a, f) => { try { navigator.mediaSession.setActionHandler(a, f); } catch (e) {} };
@@ -713,21 +844,36 @@ function pickWrong(n, kind, count) {
   }
   return out;
 }
-function startTest(c) {
+// mode: 'mix' 빈칸+뜻 반반 / 'spell' 뜻 보고 철자 쓰기 / 'hear' 발음만 듣고 뜻 고르기
+let qMode = 'mix';
+const PATTERN = /[+…()\/~]|\.\.\./;
+const TEST_NAME = { mix: '테스트', spell: '철자 테스트', hear: '듣기 테스트' };
+const bare = w => w.replace(ART, '$2');               // 관사 뺀 단어
+const fold = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim(); // 강세 무시
+function spellOk(n, typed) {
+  const want = bare(WORDS[n - 1][0]).toLowerCase().trim(), got = bare(typed.trim()).toLowerCase().replace(/\s+/g, ' ');
+  return got === want ? 'ok' : fold(got) === fold(want) ? 'accent' : '';
+}
+function startTest(c, mode) {
+  qMode = mode || 'mix';
   ctx = c; deck = ctxDeck(); if (!deck.length) return;
-  $('qLabel').textContent = ctxLabel() + ' 테스트';
+  $('qLabel').textContent = ctxLabel() + ' ' + TEST_NAME[qMode];
   // DAY는 30문제: 지난번에 안 나온 단어 먼저
-  let pickN = shuffle(deck);
+  // 철자 테스트에서는 '+ 동사원형', '(se)' 같은 문형 항목은 뺌 (그대로 쓸 수 없으니)
+  let pickN = shuffle(qMode === 'spell' ? deck.filter(n => !PATTERN.test(WORDS[n - 1][0])) : deck);
+  if (!pickN.length) return;
   if (ctx.day) {
     const last = new Set(S.lastQ[ctx.day] || []);
     pickN = [...pickN.filter(n => !last.has(n)), ...pickN.filter(n => last.has(n))];
   }
   pickN = pickN.slice(0, QN);
   if (ctx.day) { S.lastQ[ctx.day] = pickN; save(); }
-  const kinds = shuffle(pickN.map((_, i) => i % 2 ? 'mean' : 'blank'));
+  const kinds = qMode === 'mix' ? shuffle(pickN.map((_, i) => i % 2 ? 'mean' : 'blank')) : pickN.map(() => qMode);
   Q = shuffle(pickN).map((n, i) => {
-    const kind = kinds[i], right = kind === 'blank' ? target(WORDS[n - 1][2]) : WORDS[n - 1][1];
-    return { n, kind, right, opts: shuffle([right, ...pickWrong(n, kind, 3)]) };
+    const kind = kinds[i];
+    if (kind === 'spell') return { n, kind, right: bare(WORDS[n - 1][0]), opts: [] };
+    const right = kind === 'blank' ? target(WORDS[n - 1][2]) : WORDS[n - 1][1];
+    return { n, kind, right, opts: shuffle([right, ...pickWrong(n, kind === 'hear' ? 'mean' : kind, 3)]) };
   });
   qi = 0; qPick = []; qRes = [];
   show('test'); renderQ();
@@ -742,19 +888,43 @@ function renderQ() {
     $('qCard').innerHTML = `<span class="qtype">빈칸에 들어갈 말을 고르세요</span>
       <p class="ex" style="margin-top:26px">${esc(ex).replace(/\{.+?\}/, '<span class="blank">&nbsp;</span>')}</p>
       <p class="qko">${esc(ko)}</p>`;
+  } else if (q.kind === 'hear') {
+    $('qCard').innerHTML = `<span class="qtype">듣고 알맞은 뜻을 고르세요</span>
+      <button class="hearBtn" data-say="w" aria-label="다시 듣기">${SPK}<span>다시 듣기</span></button>`;
+    play(q.n, 'w');
+  } else if (q.kind === 'spell') {
+    const b = bare(w);
+    $('qCard').innerHTML = `<span class="qtype">스페인어로 쓰세요</span>
+      <div class="meaning" style="margin-top:26px">${meanH(q.n)}</div>
+      <p class="qko">${esc(b[0])}${'·'.repeat(Math.max(b.length - 1, 0))} (${b.length}글자)${w !== b ? ' · 관사는 안 써도 돼요' : ''}</p>
+      <p class="qko">${esc(ko)}</p>`;
   } else {
     $('qCard').innerHTML = `<span class="qtype">알맞은 뜻을 고르세요</span>
       <div class="wordrow"><span class="qword">${wordH(w)}</span><button class="say" data-say="w" aria-label="단어 발음 듣기">${SPK}</button></div>`;
   }
   $('opts').className = 'opts' + (q.kind === 'blank' ? ' es' : '');
-  $('opts').innerHTML = q.opts.map((o, i) => `<button data-i="${i}" class="${qPick[qi] === i ? 'sel' : ''}">${esc(o)}</button>`).join('');
+  $('opts').innerHTML = q.kind === 'spell'
+    ? `<input class="spellIn" id="spellIn" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" lang="es" placeholder="여기에 쓰기" value="${esc(qPick[qi] || '')}">
+       <div class="accents">${'áéíóúñü¿¡'.split('').map(ch => `<button data-ch="${ch}">${ch}</button>`).join('')}</div>`
+    : q.opts.map((o, i) => `<button data-i="${i}" class="${qPick[qi] === i ? 'sel' : ''}">${esc(o)}</button>`).join('');
+  if (q.kind === 'spell') {
+    const inp = $('spellIn');
+    inp.oninput = () => { qPick[qi] = inp.value; $('nextQ').classList.toggle('on', !!inp.value.trim()); };
+    inp.onkeydown = e => { if (e.key === 'Enter' && inp.value.trim()) $('nextQ').click(); };
+  }
   $('nextQ').textContent = qi < Q.length - 1 ? '다음 문제 →' : '채점하기 →';
-  $('nextQ').classList.toggle('on', qPick[qi] != null);
+  $('nextQ').classList.toggle('on', q.kind === 'spell' ? !!(qPick[qi] || '').trim() : qPick[qi] != null);
   $('qPrev').disabled = qi === 0;
 }
 $('qCard').onclick = e => { if (e.target.closest('[data-say]')) play(Q[qi].n, 'w'); };
 // 고르면 표시만 하고 다른 보기로 바꿀 수 있음. 화살표를 눌러야 다음 문제로
 $('opts').onclick = e => {
+  const a = e.target.closest('button[data-ch]');
+  if (a) { // 강세 글자 넣기 (폰 키보드에서 찾기 번거로우니)
+    const inp = $('spellIn'), s = inp.selectionStart ?? inp.value.length, t = inp.selectionEnd ?? s;
+    inp.value = inp.value.slice(0, s) + a.dataset.ch + inp.value.slice(t); inp.focus(); inp.setSelectionRange(s + 1, s + 1);
+    inp.oninput(); return;
+  }
   const b = e.target.closest('button[data-i]'); if (!b) return;
   qPick[qi] = +b.dataset.i;
   $('opts').querySelectorAll('button').forEach(x => x.classList.toggle('sel', x === b));
@@ -765,22 +935,36 @@ $('nextQ').onclick = () => { if (qi < Q.length - 1) { qi++; renderQ(); window.sc
 $('qPrev').onclick = () => { if (qi > 0) { qi--; renderQ(); window.scrollTo(0, 0); } };
 
 function finishTest() {
-  qRes = Q.map((q, i) => q.opts[qPick[i]] === q.right);
-  Q.forEach((q, i) => { if (!qRes[i] && !S.mark[q.n]) setMark(q.n, 'u'); }); // 틀린 단어는 모르는 단어로
+  const acc = [];
+  qRes = Q.map((q, i) => {
+    if (q.kind !== 'spell') return q.opts[qPick[i]] === q.right;
+    const r = spellOk(q.n, qPick[i] || ''); acc[i] = r === 'accent'; return !!r; // 강세만 틀리면 맞음으로, 표시는 따로
+  });
+  // 틀린 단어 → 모르는 단어 + 복습 일정 처음부터 / 맞힌 단어 → 맞힌 날 기록 (마스터 조건)
+  Q.forEach((q, i) => {
+    if (qRes[i]) S.okT[q.n] = today();
+    else { rate(q.n, 'u'); if (S.mark[q.n] !== 'c') S.mark[q.n] = 'u'; }
+  });
   const right = qRes.filter(Boolean).length, total = Q.length, wrong = total - right;
-  if (ctx.day) { S.score[ctx.day] = Math.max(S.score[ctx.day] || 0, Math.round(right / total * 100)); save(); }
+  if (ctx.day && qMode === 'mix') S.score[ctx.day] = Math.max(S.score[ctx.day] || 0, Math.round(right / total * 100));
+  save();
   $('eScore').innerHTML = `${right}<small> / ${total}</small>`;
   $('eTitle').textContent = wrong ? `${wrong}개 틀렸어요` : '전부 맞혔어요';
   $('eSub').textContent = wrong ? '틀린 단어는 "모르는 단어"에 넣어 뒀어요.' : (ctx.day ? `DAY ${ctx.day} 단어는 다 알고 있어요.` : '');
   $('eList').innerHTML = Q.map((q, i) => {
     const [w] = WORDS[q.n - 1];
-    const mine = qRes[i] ? '' : `<span class="mine">고른 답: ${esc(q.opts[qPick[i]] ?? '')}${q.kind === 'blank' ? ` → 정답 ${esc(q.right)}` : ''}</span>`;
+    const said = q.kind === 'spell' ? (qPick[i] || '') : (q.opts[qPick[i]] ?? '');
+    const mine = acc[i] ? `<span class="mine" style="color:var(--conf)">강세 확인: ${esc(said)} → ${esc(q.right)}</span>`
+      : qRes[i] ? '' : `<span class="mine">${q.kind === 'spell' ? '쓴 답' : '고른 답'}: ${esc(said)}${q.kind === 'blank' || q.kind === 'spell' ? ` → 정답 ${esc(q.right)}` : ''}</span>`;
     return `<div class="row"><span class="w">${wordH(w)}</span><span class="m">${meanH(q.n)}</span>${mine}<span class="t ${qRes[i] ? 'ok' : 'u'}">${qRes[i] ? '맞음' : '틀림'}</span></div>`;
   }).join('');
-  const c0 = ctx;
-  if (c0.day) {
+  const c0 = ctx, m0 = qMode;
+  if (c0.review || c0.topic || c0.fixed) {
+    endButtons(wrong ? ['같은 단어로 다시 보기', () => startTest(c0, m0)] : null,
+      wrong ? ['모르는 단어 보러 가기', () => openMarked('u')] : null);
+  } else if (c0.day) {
     const nd = nextDay();
-    endButtons(wrong ? ['같은 DAY 테스트 다시 보기', () => startTest(c0)] : (S.done[nd] ? null : [`DAY ${nd} 카드 보기`, () => startStudy({ day: nd })]),
+    endButtons(wrong ? ['같은 DAY 테스트 다시 보기', () => startTest(c0, m0)] : (S.done[nd] ? null : [`DAY ${nd} 카드 보기`, () => startStudy({ day: nd })]),
       wrong ? ['모르는 단어 보러 가기', () => openMarked('u')] : null);
   } else {
     endButtons(markedDeck(c0.list).length ? ['한 번 더 테스트', () => startTest(c0)] : null,
@@ -828,9 +1012,25 @@ $('openSet').onclick = () => { syncSw(); $('setSheet').classList.add('on'); };
 $('closeSet').onclick = () => $('setSheet').classList.remove('on');
 $('swKo').onclick = () => { S.koFirst = !S.koFirst; save(); syncSw(); };
 $('swAuto').onclick = () => { S.autoSay = !S.autoSay; save(); syncSw(); if (S.autoSay) play(1, 'w'); };
+// 기록 백업: 파일로 저장 / 파일에서 불러오기 (폰 기록이 지워져도 되살릴 수 있게)
+$('bkOut').onclick = () => {
+  const blob = new Blob([JSON.stringify({ app: 'dele-b2', at: new Date().toISOString(), S })], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `dele-b2-기록-${today()}.json`;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  $('bkSub').textContent = '저장했어요. 파일 앱(다운로드)에 있어요';
+};
+$('bkIn').onclick = () => $('bkFile').click();
+$('bkFile').onchange = () => {
+  const f = $('bkFile').files[0]; if (!f) return;
+  f.text().then(t => {
+    const d = JSON.parse(t); if (!d || d.app !== 'dele-b2' || !d.S) throw 0;
+    S = Object.assign(S, d.S); save(); $('bkSub').textContent = '불러왔어요'; renderHome();
+  }).catch(() => { $('bkSub').textContent = '이 앱의 기록 파일이 아니에요'; });
+  $('bkFile').value = '';
+};
 $('reset').onclick = () => {
   if ($('reset').dataset.sure) {
-    S.done = {}; S.mark = {}; S.score = {}; S.lastQ = {}; save(); delete $('reset').dataset.sure;
+    S.done = {}; S.mark = {}; S.score = {}; S.lastQ = {}; S.srs = {}; S.okT = {}; S.master = {}; save(); delete $('reset').dataset.sure;
     $('reset').textContent = '기록 전부 지우기'; $('setSheet').classList.remove('on'); renderHome();
   } else { $('reset').dataset.sure = 1; $('reset').textContent = '한 번 더 누르면 지워져요'; }
 };
@@ -840,6 +1040,9 @@ renderHome();
 const hd = location.hash.match(/^#(day|test|listen)(\d+)$/);
 if (hd) ({ day: startStudy, test: startTest, listen: startListen })[hd[1]]({ day: Math.min(+hd[2], DAYS) });
 const hl2 = location.hash.match(/^#list-([uc])$/); if (hl2) openMarked(hl2[1]);
+const hm = location.hash.match(/^#(spell|hear)(\d+)$/); if (hm) startTest({ day: Math.min(+hm[2], DAYS) }, hm[1]);
+if (location.hash === '#review') startStudy({ review: true });
+if (location.hash === '#topics') openTopics();
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(r => r.update());
   // 새 버전이 설치되면 화면을 한 번 새로 고침
