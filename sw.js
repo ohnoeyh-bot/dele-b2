@@ -3,7 +3,7 @@
 // ⚠️ 이름은 반드시 'deleb2-'로 시작. 같은 주소(ohnoeyh-bot.github.io) 아래 영어 앱 저장본을 지우지 않으려고
 //    업데이트할 때 'deleb2-'로 시작하는 옛 저장본만 지운다
 const APP = 'deleb2-';
-const VERSION = APP + 'v2';
+const VERSION = APP + 'v3';
 const FILES = ['./', 'index.html', 'words.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
